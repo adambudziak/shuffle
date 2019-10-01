@@ -1,0 +1,12 @@
+[package]
+name = "shuffle"
+version = "0.1.0"
+authors = ["Adam Budziak <adambudziak@protonmail.com>"]
+edition = "2018"
+licence = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.7"
+bitvec = "0.15"
