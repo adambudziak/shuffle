@@ -3,8 +3,9 @@ name = "shuffle"
 version = "0.1.0"
 authors = ["Adam Budziak <adambudziak@protonmail.com>"]
 edition = "2018"
-licence = "MIT"
+license = "MIT"
 repository = "https://github.com/adambudziak/shuffle"
+description = "Implementation of various shuffling algorithms over slices."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
