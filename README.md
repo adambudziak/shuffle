@@ -3,6 +3,7 @@ Various shuffling algorithms for rust.
 
 ## Currently implemented shuffling algorithms
 - [x] Inverse Riffle Shuffle
+- [x] Fisher-Yates
 - [ ] ... ? TODO
 
 ## Examples
