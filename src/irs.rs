@@ -90,7 +90,7 @@ where
 /// irs.shuffle(&mut input, &mut rng);
 /// assert_eq!(&input, &[4, 1, 5, 3, 2]);
 /// ```
-#[derive(Default)]
+#[derive(Debug, Default)]
 pub struct Irs<T> {
     context: Option<Context<T>>,
 }
