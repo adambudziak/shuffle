@@ -1,4 +1,13 @@
 //! Implementation of the Inverse Riffle Shuffle algorithm.
+//!
+//! A Riffle Shuffle is a common algorithm used for mixing cards
+//! (see [wiki](https://en.wikipedia.org/wiki/Riffle_shuffle_permutation)).
+//!
+//! Inverse Riffle Shuffle is an algorithm that has exactly the same
+//! properties as Riffle Shuffle, but is much more implementation-friendly.
+//!
+//! *Aldous, David, and Persi Diaconis. "Shuffling cards and stopping times."
+//! The American Mathematical Monthly 93.5 (1986): 333-348.*
 
 use bitvec::prelude::*;
 use rand::RngCore;
