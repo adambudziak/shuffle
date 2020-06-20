@@ -13,4 +13,4 @@ readme = "./README.md"
 
 [dependencies]
 rand = "0.7"
-bitvec = "0.15"
+bitvec = "0.17.4"
