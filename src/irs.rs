@@ -70,7 +70,7 @@ where
         // is still in the range.
         let result = unsafe { self.buffer.get_unchecked(self.index) };
         self.index += 1;
-        result
+        *result
     }
 }
 
