@@ -10,6 +10,7 @@
 //! The American Mathematical Monthly 93.5 (1986): 333-348.*
 
 use bitvec::prelude::*;
+use bitvec::order::Lsb0;
 use rand::RngCore;
 
 use crate::shuffler::Shuffler;
@@ -38,7 +39,7 @@ struct InfiniteBitIter<'a, R>
 where
     R: ?Sized,
 {
-    buffer: BitVec<LittleEndian, u8>,
+    buffer: BitVec<Lsb0, u8>,
     rng: &'a mut R,
     index: usize,
 }
@@ -206,7 +207,6 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use rand::prelude::*;
 
     #[test]
     fn test_irs() {
@@ -215,7 +215,7 @@ mod tests {
 
         let input_data = vec![1, 2, 3, 4];
         let mut target = input_data.clone();
-        irs.shuffle(&mut target, &mut rng);
+        irs.shuffle(&mut target, &mut rng).unwrap();
         assert_eq!(target.len(), input_data.len());
         assert_ne!(target, input_data);
         assert!(target.iter().all(|n| input_data.contains(n)));
