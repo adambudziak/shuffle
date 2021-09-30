@@ -114,7 +114,7 @@ impl<T> Shuffler<T> for Irs<T> {
                 return Ok(());
             }
         }
-        return Err("bad randomness source");
+        Err("bad randomness source")
     }
 }
 
@@ -143,7 +143,7 @@ impl<T> Irs<T> {
                 if data.len() != c.data_cp.len() {
                     self.context = Some(Context::new(data));
                 } else {
-                    c.data_cp.as_mut_slice().clone_from_slice(&data[..]);
+                    c.data_cp.as_mut_slice().clone_from_slice(data);
                     c.bit_slots.iter_mut().for_each(|c| *c = 0);
                 }
             }
@@ -201,7 +201,7 @@ fn all_distinct<T>(sorted_data: &[T]) -> bool
 where
     T: Eq,
 {
-    sorted_data.windows(2).find(|s| s[0] == s[1]).is_none()
+    !sorted_data.windows(2).any(|s| s[0] == s[1])
 }
 
 #[cfg(test)]
