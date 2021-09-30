@@ -1,6 +1,6 @@
 [package]
 name = "shuffle"
-version = "0.1.6"
+version = "0.1.7"
 authors = ["Adam Budziak <adambudziak@protonmail.com>"]
 edition = "2018"
 license = "MIT"
@@ -12,5 +12,5 @@ readme = "./README.md"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rand = "0.7"
+rand = "0.8.4"
 bitvec = "0.17.4"

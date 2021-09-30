@@ -33,7 +33,7 @@
 
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
-#![deny(intra_doc_link_resolution_failure)]
+#![deny(rustdoc::broken_intra_doc_links)]
 
 pub mod shuffler;
 pub mod irs;
