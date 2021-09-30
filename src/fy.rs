@@ -30,13 +30,12 @@ impl<T> Shuffler<T> for FisherYates {
     fn shuffle<R>(&mut self, data: &mut Vec<T>, rng: &mut R) -> Result<(), &str>
     where
         T: Clone,
-        R: Rng + ?Sized
+        R: Rng + ?Sized,
     {
         for i in (1..data.len()).rev() {
-            let j = rng.gen_range(0..(i+1));
+            let j = rng.gen_range(0..(i + 1));
             data.swap(i, j);
         }
         Ok(())
     }
 }
-

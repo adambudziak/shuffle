@@ -14,7 +14,7 @@
 //!
 //! Assuming that the source of the randomness is good,
 //! all of the shuffling algorithms return a permutation from a uniform distribution.
-//! 
+//!
 //!
 //! # Example
 //! ```
@@ -35,6 +35,6 @@
 #![deny(missing_debug_implementations)]
 #![deny(rustdoc::broken_intra_doc_links)]
 
-pub mod shuffler;
-pub mod irs;
 pub mod fy;
+pub mod irs;
+pub mod shuffler;
