@@ -9,8 +9,8 @@
 //! *Aldous, David, and Persi Diaconis. "Shuffling cards and stopping times."
 //! The American Mathematical Monthly 93.5 (1986): 333-348.*
 
-use bitvec::prelude::*;
 use bitvec::order::Lsb0;
+use bitvec::prelude::*;
 use rand::RngCore;
 
 use crate::shuffler::Shuffler;

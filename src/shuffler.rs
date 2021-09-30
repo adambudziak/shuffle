@@ -12,4 +12,3 @@ pub trait Shuffler<T> {
         T: Clone,
         R: RngCore + ?Sized;
 }
-
