@@ -33,7 +33,7 @@ impl<T> Shuffler<T> for FisherYates {
         R: Rng + ?Sized,
     {
         for i in (1..data.len()).rev() {
-            let j = rng.gen_range(0..(i + 1));
+            let j = rng.random_range(0..(i + 1));
             data.swap(i, j);
         }
         Ok(())

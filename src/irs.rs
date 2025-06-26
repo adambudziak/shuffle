@@ -39,7 +39,7 @@ struct InfiniteBitIter<'a, R>
 where
     R: ?Sized,
 {
-    buffer: BitVec<Lsb0, u8>,
+    buffer: BitVec<u8, Lsb0>,
     rng: &'a mut R,
     index: usize,
 }
@@ -65,7 +65,7 @@ where
         let cbuf_bits = self.buffer.len() * 8;
         if self.index == cbuf_bits {
             self.index = 0;
-            self.rng.fill_bytes(self.buffer.as_mut_slice());
+            self.rng.fill_bytes(self.buffer.as_raw_mut_slice());
         }
         // This is safe because we manually check whether the index
         // is still in the range.
