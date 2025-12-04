@@ -11,11 +11,15 @@ readme = "./README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+default = ["rand-0_9"]
+rand-0_8 = ["dep:rand-0_8"]
+rand-0_9 = ["dep:rand-0_9"]
+
 [dependencies]
 # Deactivate default features in order to be able to use this on systems without
 # access to an entropy souce via getrandom such as wasm32-unknown-unknown
-rand = { version = "0.8.4", default-features = false }
-bitvec = "0.17.4"
+rand-0_8 = { package = "rand", version = "0.8", default-features = false, optional = true }
+rand-0_9 = { package = "rand", version = "0.9", default-features = false, optional = true }
 
-[dev-dependencies]
-rand = "0.8.4"
+bitvec = "0.17.4"

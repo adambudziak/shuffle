@@ -1,7 +1,12 @@
 //! Implementation of Fisher-Yates algorithm.
 //!
 
-use rand::Rng;
+
+#[cfg(feature = "rand-0_8")]
+use rand_0_8 as rand;
+
+#[cfg(feature = "rand-0_9")]
+use rand_0_9 as rand;
 
 use crate::shuffler::Shuffler;
 
@@ -9,6 +14,11 @@ use crate::shuffler::Shuffler;
 ///
 /// # Examples
 /// ```
+/// # #[cfg(feature = "rand-0_8")]
+/// # use rand_0_8 as rand;
+///
+/// # #[cfg(feature = "rand-0_9")]
+/// # use rand_0_9 as rand;
 /// use shuffle::shuffler::Shuffler;
 /// use shuffle::fy::FisherYates;
 /// use rand::rngs::mock::StepRng;
@@ -23,17 +33,20 @@ use crate::shuffler::Shuffler;
 /// ```
 #[derive(Debug, Default)]
 pub struct FisherYates {
-    buffer: [u8; std::mem::size_of::<usize>()],
 }
 
 impl<T> Shuffler<T> for FisherYates {
     fn shuffle<R>(&mut self, data: &mut Vec<T>, rng: &mut R) -> Result<(), &str>
     where
         T: Clone,
-        R: Rng + ?Sized,
+        R: rand::Rng + ?Sized,
     {
         for i in (1..data.len()).rev() {
+            #[cfg(feature = "rand-0_8")]
             let j = rng.gen_range(0..(i + 1));
+
+            #[cfg(feature = "rand-0_9")]
+            let j = rng.random_range(0..(i + 1));
             data.swap(i, j);
         }
         Ok(())

@@ -1,6 +1,10 @@
 //! The `Shuffler` trait.
 
-use rand::RngCore;
+#[cfg(feature = "rand-0_8")]
+use rand_0_8 as rand;
+
+#[cfg(feature = "rand-0_9")]
+use rand_0_9 as rand;
 
 /// A trait defining `Shuffler` objects that can be used for shuffling data
 /// in various manners
@@ -10,5 +14,5 @@ pub trait Shuffler<T> {
     fn shuffle<R>(&mut self, data: &mut Vec<T>, rng: &mut R) -> Result<(), &str>
     where
         T: Clone,
-        R: RngCore + ?Sized;
+        R: rand::RngCore + ?Sized;
 }

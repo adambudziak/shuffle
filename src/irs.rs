@@ -11,7 +11,12 @@
 
 use bitvec::order::Lsb0;
 use bitvec::prelude::*;
-use rand::RngCore;
+
+#[cfg(feature = "rand-0_8")]
+use rand_0_8 as rand;
+
+#[cfg(feature = "rand-0_9")]
+use rand_0_9 as rand;
 
 use crate::shuffler::Shuffler;
 
@@ -59,7 +64,7 @@ where
 
 impl<'a, R> InfiniteBitIter<'a, R>
 where
-    R: RngCore + ?Sized,
+    R: rand::RngCore + ?Sized,
 {
     fn next_bit(&mut self) -> bool {
         let cbuf_bits = self.buffer.len() * 8;
@@ -79,6 +84,12 @@ where
 ///
 /// # Examples
 /// ```
+/// # #[cfg(feature = "rand-0_8")]
+/// # use rand_0_8 as rand;
+///
+/// # #[cfg(feature = "rand-0_9")]
+/// # use rand_0_9 as rand;
+///
 /// use shuffle::shuffler::Shuffler;
 /// use shuffle::irs::Irs;
 /// use rand::rngs::mock::StepRng;
@@ -100,7 +111,7 @@ impl<T> Shuffler<T> for Irs<T> {
     fn shuffle<R>(&mut self, data: &mut Vec<T>, rng: &mut R) -> Result<(), &str>
     where
         T: Clone,
-        R: RngCore + ?Sized,
+        R: rand::RngCore + ?Sized,
     {
         let mut context = self.get_reset_context(data);
         let mut initial_buffer = vec![0; 32];
@@ -151,7 +162,7 @@ impl<T> Irs<T> {
                 self.context = Some(Context::new(data));
             }
         };
-        std::mem::replace(&mut self.context, None).unwrap()
+        self.context.take().unwrap()
     }
 
     fn one_round<R>(
@@ -161,7 +172,7 @@ impl<T> Irs<T> {
         rand_bit_iter: &mut InfiniteBitIter<R>,
     ) where
         T: Clone,
-        R: RngCore + ?Sized,
+        R: rand::RngCore + ?Sized,
     {
         let mut odd_count = 0;
         for slot in ctx.bit_slots.iter_mut() {
@@ -208,11 +219,31 @@ where
 mod tests {
     use super::*;
 
+
+    struct DummyRng(u64);
+
+    impl rand::RngCore for DummyRng {
+        fn next_u32(&mut self) -> u32 {
+            self.next_u64() as u32
+        }
+
+        fn next_u64(&mut self) -> u64 {
+            self.0 = self.0.wrapping_add(1);
+            self.0
+        }
+
+        fn fill_bytes(&mut self, dest: &mut [u8]) {
+            for byte in dest {
+                *byte = self.next_u64() as u8;
+            }
+        }
+    }
+
+
     #[test]
     fn test_irs() {
         let mut irs = Irs::default();
-        let mut rng = rand::rngs::mock::StepRng::new(1, 1);
-
+        let mut rng = DummyRng(0);
         let input_data = vec![1, 2, 3, 4];
         let mut target = input_data.clone();
         irs.shuffle(&mut target, &mut rng).unwrap();
