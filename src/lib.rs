@@ -33,7 +33,6 @@
 //! ```
 
 #![no_std]
-
 #![deny(missing_docs)]
 #![deny(missing_debug_implementations)]
 #![deny(rustdoc::broken_intra_doc_links)]

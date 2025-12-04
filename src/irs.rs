@@ -11,8 +11,8 @@
 
 extern crate alloc;
 
-use alloc::vec::Vec;
 use alloc::vec;
+use alloc::vec::Vec;
 
 use bitvec::order::Lsb0;
 use bitvec::prelude::*;
@@ -224,7 +224,6 @@ where
 mod tests {
     use super::*;
 
-
     struct DummyRng(u64);
 
     impl rand::RngCore for DummyRng {
@@ -243,7 +242,6 @@ mod tests {
             }
         }
     }
-
 
     #[test]
     fn test_irs() {

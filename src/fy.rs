@@ -35,8 +35,7 @@ use crate::shuffler::Shuffler;
 /// assert_eq!(&input, &[2, 3, 4, 5, 1]);
 /// ```
 #[derive(Debug, Default)]
-pub struct FisherYates {
-}
+pub struct FisherYates {}
 
 impl<T> Shuffler<T> for FisherYates {
     fn shuffle<R>(&mut self, data: &mut Vec<T>, rng: &mut R) -> Result<(), &str>
