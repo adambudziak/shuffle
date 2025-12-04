@@ -1,6 +1,6 @@
 [package]
 name = "shuffle"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Adam Budziak <adambudziak@protonmail.com>"]
 edition = "2018"
 license = "MIT"
@@ -12,9 +12,11 @@ readme = "./README.md"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [features]
-default = ["rand-0_9"]
+default = ["rand-0_9", "bitvec-1_0"]
 rand-0_8 = ["dep:rand-0_8"]
 rand-0_9 = ["dep:rand-0_9"]
+bitvec-0_17 = ["dep:bitvec-0_17"]
+bitvec-1_0 = ["dep:bitvec-1_0"]
 
 [dependencies]
 # Deactivate default features in order to be able to use this on systems without
@@ -22,4 +24,5 @@ rand-0_9 = ["dep:rand-0_9"]
 rand-0_8 = { package = "rand", version = "0.8", default-features = false, optional = true }
 rand-0_9 = { package = "rand", version = "0.9", default-features = false, optional = true }
 
-bitvec = "0.17.4"
+bitvec-0_17 = { package = "bitvec", version = "0.17", optional = true }
+bitvec-1_0 = { package = "bitvec", version = "1.0", optional = true }

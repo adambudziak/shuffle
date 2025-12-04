@@ -14,6 +14,12 @@ extern crate alloc;
 use alloc::vec;
 use alloc::vec::Vec;
 
+#[cfg(feature = "bitvec-0_17")]
+use bitvec_0_17 as bitvec;
+
+#[cfg(feature = "bitvec-1_0")]
+use bitvec_1_0 as bitvec;
+
 use bitvec::order::Lsb0;
 use bitvec::prelude::*;
 
@@ -49,7 +55,10 @@ struct InfiniteBitIter<'a, R>
 where
     R: ?Sized,
 {
+    #[cfg(feature = "bitvec-0_17")]
     buffer: BitVec<Lsb0, u8>,
+    #[cfg(feature = "bitvec-1_0")]
+    buffer: BitVec<u8, Lsb0>,
     rng: &'a mut R,
     index: usize,
 }
@@ -75,7 +84,10 @@ where
         let cbuf_bits = self.buffer.len() * 8;
         if self.index == cbuf_bits {
             self.index = 0;
+            #[cfg(feature = "bitvec-0_17")]
             self.rng.fill_bytes(self.buffer.as_mut_slice());
+            #[cfg(feature = "bitvec-1_0")]
+            self.rng.fill_bytes(self.buffer.as_raw_mut_slice());
         }
         // This is safe because we manually check whether the index
         // is still in the range.
@@ -240,6 +252,12 @@ mod tests {
             for byte in dest {
                 *byte = self.next_u64() as u8;
             }
+        }
+
+        #[cfg(feature = "rand-0_8")]
+        fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), rand::Error> {
+            self.fill_bytes(dest);
+            Ok(())
         }
     }
 

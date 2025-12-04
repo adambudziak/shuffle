@@ -4,8 +4,12 @@ name: Continuous integration
 
 jobs:
   check:
-    name: Check
+    name: Check (${{ matrix.rand }}, ${{ matrix.bitvec }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rand: [rand-0_8, rand-0_9]
+        bitvec: [bitvec-0_17, bitvec-1_0]
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -16,10 +20,15 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: check
+          args: --no-default-features --features ${{ matrix.rand }},${{ matrix.bitvec }}
 
   test:
-    name: Test Suite
+    name: Test Suite (${{ matrix.rand }}, ${{ matrix.bitvec }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rand: [rand-0_8, rand-0_9]
+        bitvec: [bitvec-0_17, bitvec-1_0]
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -30,6 +39,7 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: test
+          args: --no-default-features --features ${{ matrix.rand }},${{ matrix.bitvec }}
 
   fmt:
     name: Rustfmt
@@ -48,8 +58,12 @@ jobs:
           args: --all -- --check
 
   clippy:
-    name: Clippy
+    name: Clippy (${{ matrix.rand }}, ${{ matrix.bitvec }})
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rand: [rand-0_8, rand-0_9]
+        bitvec: [bitvec-0_17, bitvec-1_0]
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -61,4 +75,4 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: clippy
-          args: -- -D warnings
+          args: --no-default-features --features ${{ matrix.rand }},${{ matrix.bitvec }} -- -D warnings
