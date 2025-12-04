@@ -9,6 +9,11 @@
 //! *Aldous, David, and Persi Diaconis. "Shuffling cards and stopping times."
 //! The American Mathematical Monthly 93.5 (1986): 333-348.*
 
+extern crate alloc;
+
+use alloc::vec::Vec;
+use alloc::vec;
+
 use bitvec::order::Lsb0;
 use bitvec::prelude::*;
 
@@ -198,8 +203,8 @@ impl<T> Irs<T> {
             ctx.data_cp[position] = data[i].clone();
         }
 
-        std::mem::swap(&mut ctx.data_cp, data);
-        std::mem::swap(&mut ctx.bit_slots_cp, &mut ctx.bit_slots);
+        core::mem::swap(&mut ctx.data_cp, data);
+        core::mem::swap(&mut ctx.bit_slots_cp, &mut ctx.bit_slots);
     }
 }
 

@@ -56,7 +56,7 @@ checksum = "99d9a13982dcf210057a8a78572b2217b667c3beacbf3a0d8b454f6f82837d38"
 
 [[package]]
 name = "shuffle"
-version = "0.1.7"
+version = "0.2.0"
 dependencies = [
  "bitvec",
  "rand 0.8.4",

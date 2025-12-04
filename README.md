@@ -6,6 +6,10 @@ Various shuffling algorithms for rust.
 - [x] Fisher-Yates
 - [ ] ... ? TODO
 
+## `no_std` Support
+
+This crate is `no_std` compatible but requires the `alloc` crate (for `Vec`).
+
 ## Examples
 
 ```

@@ -1,6 +1,9 @@
 //! Implementation of Fisher-Yates algorithm.
 //!
 
+extern crate alloc;
+
+use alloc::vec::Vec;
 
 #[cfg(feature = "rand-0_8")]
 use rand_0_8 as rand;
